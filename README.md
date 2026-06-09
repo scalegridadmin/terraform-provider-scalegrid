@@ -65,4 +65,4 @@ See the ScaleGrid platform documentation for the full list of operation IDs.
 
 ## Development
 
-This repository is synced from the ScaleGrid OpenAPI-driven codegen pipeline in Bitbucket (`scalegrid_admin/mcp`). Do not hand-edit generated files under `internal/provider/` from OpenAPI codegen.
+Provider source is generated from the ScaleGrid OpenAPI spec in Bitbucket (`scalegrid_admin/mcp`). This public repository contains registry documentation and release artifacts only; generated Go code is built in CI and is not published on `main`.
