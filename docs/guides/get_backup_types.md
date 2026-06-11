@@ -1,0 +1,20 @@
+---
+page_title: "get_backup_types"
+description: |-
+  Get Backup Types
+---
+
+# get_backup_types
+
+See the [`scalegrid_operation` data source documentation](../data-sources/operation#get_backup_types) for the full reference.
+
+**HTTP:** `POST /backuptypes/list`
+
+## Terraform Example
+
+```terraform
+data "scalegrid_operation" "example" {
+  operation_id = "get_backup_types"
+  body_json = "{\"pageIndex\":0,\"pageSize\":0,\"sortParameters\":[{\"attributeName\":\"e2e-smoke\",\"direction\":\"ASC\"}],\"filters\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operator\":\"LIKE\",\"valid\":false}],\"conjunction\":\"AND\"}"
+}
+```
