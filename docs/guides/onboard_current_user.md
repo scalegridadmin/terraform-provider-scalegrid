@@ -6,14 +6,14 @@ description: |-
 
 # onboard_current_user
 
-See the [`scalegrid_operation` data source documentation](../data-sources/operation#onboard_current_user) for the full reference.
+See the [`scalegrid_operation` resource documentation](../resources/operation#onboard_current_user) for the full reference.
 
 **HTTP:** `POST /identity/users/onboard`
 
 ## Terraform Example
 
 ```terraform
-data "scalegrid_operation" "example" {
+resource "scalegrid_operation" "example" {
   operation_id = "onboard_current_user"
 }
 ```

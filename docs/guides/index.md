@@ -6,7 +6,7 @@ description: |-
 
 # Operations
 
-The complete documentation for every operation lives on the [`scalegrid_operation` data source page](../data-sources/operation). This index links to individual operation summaries.
+The complete documentation for every operation lives on the [`scalegrid_operation` resource page](../resources/operation). This index links to individual operation summaries.
 
 - [`clone_scalegrid_service_cluster`](./clone_scalegrid_service_cluster) — `POST /scalegridserviceclusters/clone`
 - [`create_backup`](./create_backup) — `POST /backupconfigurations/{backupConfigurationUid}/backups/run`

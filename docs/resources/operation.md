@@ -1,15 +1,15 @@
 ---
-page_title: "scalegrid_operation Data Source"
+page_title: "scalegrid_operation Resource"
 description: |-
-  Calls any ScaleGrid API operation by operation_id.
+  Invokes any ScaleGrid API operation by operation_id during terraform apply.
 ---
 
-# scalegrid_operation (Data Source)
+# scalegrid_operation (Resource)
 
-Calls ScaleGrid API endpoints from Terraform. Set `operation_id` to the operation you want to invoke, then optionally supply `path_params` and `body_json`.
+Invokes ScaleGrid API endpoints from Terraform when you run `terraform apply`. Set `operation_id` to the operation you want to invoke, then optionally supply `path_params` and `body_json`. `terraform plan` validates configuration without calling sg-api.
 
 ```terraform
-data "scalegrid_operation" "example" {
+resource "scalegrid_operation" "example" {
   operation_id = "<operation_id>"
 }
 ```
@@ -24,7 +24,7 @@ data "scalegrid_operation" "example" {
 
 - `path_params` (Map of String) Path parameter values for templated URLs.
 - `body_json` (String) JSON request body for POST, PUT, and PATCH operations.
-- `allow_non_success_status` (Boolean) When `true`, non-2xx HTTP responses do not fail the read. Defaults to `false`.
+- `allow_non_success_status` (Boolean) When `true`, non-2xx HTTP responses do not fail the create. Defaults to `false`.
 
 ### Read-Only
 
@@ -118,7 +118,7 @@ Clones a service based on an existing backup.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "clone_scalegrid_service_cluster" {
+resource "scalegrid_operation" "clone_scalegrid_service_cluster" {
   operation_id = "clone_scalegrid_service_cluster"
   body_json = "{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"scalegridServiceClusterUid\":\"e2e-smoke\",\"targetScalegridServiceClusterUid\":\"e2e-smoke\",\"backupUid\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"valid\":false}"
 }
@@ -137,7 +137,7 @@ Creates a backup based on a specific backup configuration on demand.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "create_backup" {
+resource "scalegrid_operation" "create_backup" {
   operation_id = "create_backup"
   path_params = {
     backupConfigurationUid = "00000000-0000-0000-0000-000000000001"
@@ -161,7 +161,7 @@ Creates a new backup locale.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "create_backup_locale" {
+resource "scalegrid_operation" "create_backup_locale" {
   operation_id = "create_backup_locale"
   body_json = "{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"uid\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"description\":\"e2e-smoke\",\"creationTime\":\"e2e-smoke\",\"labels\":[\"e2e-smoke\"],\"backupLocaleRoles\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"uid\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"description\":\"e2e-smoke\",\"permissions\":[{\"errors\":[{}],\"name\":\"e2e-smoke\",\"category\":\"e2e-smoke\",\"permissionName\":\"e2e-smoke\",\"resourceServerIdentifier\":\"e2e-smoke\",\"valid\":false}],\"modificationAllowed\":false,\"valid\":false}],\"organizationUid\":\"e2e-smoke\",\"cloudProvider\":\"AWS\",\"platformId\":\"e2e-smoke\",\"backupStorages\":[\"STORAGE_CLASS\"],\"objectStorageName\":\"e2e-smoke\",\"valid\":false}"
 }
@@ -183,7 +183,7 @@ Restores a specific backup.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "create_restore" {
+resource "scalegrid_operation" "create_restore" {
   operation_id = "create_restore"
   body_json = "{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"uid\":\"e2e-smoke\",\"targetInstances\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"uid\":\"e2e-smoke\",\"backupUid\":\"e2e-smoke\",\"configurationDetails\":\"e2e-smoke\",\"startTime\":\"e2e-smoke\",\"endTime\":\"e2e-smoke\",\"status\":\"WIP\",\"statusDetails\":\"e2e-smoke\",\"targetInstanceUid\":\"e2e-smoke\",\"restoreClusterUid\":\"e2e-smoke\",\"targetInstanceName\":\"e2e-smoke\",\"valid\":false}],\"valid\":false}"
 }
@@ -205,7 +205,7 @@ Creates a role.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "create_role" {
+resource "scalegrid_operation" "create_role" {
   operation_id = "create_role"
   body_json = "{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"uid\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"description\":\"e2e-smoke\",\"permissions\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"name\":\"e2e-smoke\",\"category\":\"e2e-smoke\",\"permissionName\":\"e2e-smoke\",\"resourceServerIdentifier\":\"e2e-smoke\",\"valid\":false}],\"modificationAllowed\":false,\"valid\":false}"
 }
@@ -227,7 +227,7 @@ Creates a new cluster which represents the connection between Scalegrid* and the
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "create_scalegrid_cluster" {
+resource "scalegrid_operation" "create_scalegrid_cluster" {
   operation_id = "create_scalegrid_cluster"
   body_json = "{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"uid\":\"e2e-smoke\",\"cloudProvider\":\"AWS\",\"organizationClusterName\":\"e2e-smoke\",\"clusterKubernetesNamespace\":\"e2e-smoke\",\"affinitySelector\":[\"e2e-smoke\"],\"antiAffinity\":[\"e2e-smoke\"],\"nodeSelector\":[\"e2e-smoke\"],\"storage\":{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"type\":\"STORAGE_CLASS\",\"name\":\"e2e-smoke\",\"allowVolumeExpansion\":false,\"valid\":false},\"organizationClusterDescription\":\"e2e-smoke\",\"nodeName\":\"e2e-smoke\",\"clusterUid\":\"e2e-smoke\",\"labels\":[\"e2e-smoke\"],\"organizationClusterRoles\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"uid\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"description\":\"e2e-smoke\",\"permissions\":[{\"errors\":[{}],\"name\":\"e2e-smoke\",\"category\":\"e2e-smoke\",\"permissionName\":\"e2e-smoke\",\"resourceServerIdentifier\":\"e2e-smoke\",\"valid\":false}],\"modificationAllowed\":false,\"valid\":false}],\"os\":\"LINUX\",\"architecture\":\"AMD64\",\"helmDeploymentCommand\":\"e2e-smoke\",\"region\":\"e2e-smoke\",\"ingressControllers\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"from\":0,\"to\":0,\"name\":\"e2e-smoke\",\"ingressType\":\"PUBLICLY_EXPOSED\",\"valid\":false}],\"platformID\":\"e2e-smoke\",\"tolerations\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operation\":\"Exists\",\"effect\":\"NoSchedule\",\"valid\":false}],\"externalCidr\":{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"cidr\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"valid\":false},\"podCidr\":{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"cidr\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"valid\":false},\"tunnelCidr\":{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"cidr\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"valid\":false},\"kubernetesApiUrl\":\"e2e-smoke\",\"valid\":false}"
 }
@@ -249,7 +249,7 @@ Creates a new Scalegrid managed service.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "create_scalegrid_service_cluster" {
+resource "scalegrid_operation" "create_scalegrid_service_cluster" {
   operation_id = "create_scalegrid_service_cluster"
   body_json = "{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"uid\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"description\":\"e2e-smoke\",\"creationTime\":\"e2e-smoke\",\"hasTelemetry\":false,\"ingress\":\"PUBLICLY_EXPOSED\",\"instances\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"uid\":\"e2e-smoke\",\"organizationClusterUid\":\"e2e-smoke\",\"scalegridServiceClusterUid\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"kubernetesNamespace\":\"e2e-smoke\",\"affinitySelector\":[\"e2e-smoke\"],\"antiAffinitySelector\":[\"e2e-smoke\"],\"nodeSelector\":[\"e2e-smoke\"],\"nodeName\":\"e2e-smoke\",\"autoScalingType\":\"NONE\",\"autoScalingCpuPercentage\":0,\"autoScalingMemoryPercentage\":0,\"storageType\":\"STORAGE_CLASS\",\"storageName\":\"e2e-smoke\",\"inboundCIDRs\":[{\"errors\":[{}],\"cidr\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"valid\":false}],\"failoverPriority\":0,\"additionalSettings\":\"e2e-smoke\",\"resources\":[{\"name\":\"e2e-smoke\",\"resource\":\"e2e-smoke\",\"certificateExpirationDate\":\"e2e-smoke\"}],\"creationTime\":\"e2e-smoke\",\"cpuSizeMRequest\":0,\"memorySizeMbRequest\":0,\"storageSizeMb\":0,\"cpuSizeMMaxLimit\":0,\"cpuSizeMMinLimit\":0,\"memorySizeMbMaxLimit\":0,\"memorySizeMbMinLimit\":0,\"alerts\":[{\"errors\":[{}],\"uid\":\"e2e-smoke\",\"organizationClusterUid\":\"e2e-smoke\",\"scalegridServiceClusterUid\":\"e2e-smoke\",\"scalegridServiceClusterName\":\"e2e-smoke\",\"scalegridServiceUid\":\"e2e-smoke\",\"instanceUid\":\"e2e-smoke\",\"instanceName\":\"e2e-smoke\",\"organizationUid\":\"e2e-smoke\",\"serviceAlertUid\":\"e2e-smoke\",\"sendResolved\":false,\"emailsToNotify\":[\"e2e-smoke\"],\"parameters\":[{}],\"alertType\":\"POD\",\"valid\":false}],\"labels\":[\"e2e-smoke\"],\"ruleBasedVPAs\":[{\"errors\":[{}],\"uid\":\"e2e-smoke\",\"cpuSizeMRequest\":0,\"memorySizeMbRequest\":0,\"cpuSizeMMaxLimit\":0,\"cpuSizeMMinLimit\":0,\"memorySizeMbMaxLimit\":0,\"memorySizeMbMinLimit\":0,\"cronJob\":\"e2e-smoke\",\"autoScalingType\":\"NONE\",\"valid\":false}],\"architecture\":\"AMD64\",\"os\":\"LINUX\",\"tolerations\":[{\"errors\":[{}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operation\":\"Exists\",\"effect\":\"NoSchedule\",\"valid\":false}],\"valid\":false}],\"scalegridServiceVersion\":{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"uid\":\"e2e-smoke\",\"scalegridServiceEnum\":\"RabbitMQ\",\"versionName\":\"e2e-smoke\",\"preRequiredScalegridVersionsForUpgrade\":\"e2e-smoke\",\"availableForNewDeployments\":false,\"description\":\"e2e-smoke\",\"allowedAutoScalingTypes\":[\"NONE\"],\"replicationTypes\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{}}],\"uid\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"description\":\"e2e-smoke\",\"numberOfReplicas\":0,\"valid\":false}],\"backupInstallInstructions\":\"e2e-smoke\",\"clusterType\":\"ACTIVE_ACTIVE\",\"architectures\":[\"AMD64\"],\"oss\":[\"LINUX\"],\"settings\":{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"settings\":[{\"errors\":[{}],\"uid\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"valueType\":\"NUMBER\",\"options\":\"e2e-smoke\",\"enabled\":false,\"description\":\"e2e-smoke\",\"parentSettingUid\":\"e2e-smoke\",\"valid\":false}],\"extensions\":[{\"errors\":[{}],\"uid\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"description\":\"e2e-smoke\",\"enabled\":false,\"settings\":[{}],\"requiredExtensionUids\":[\"e2e-smoke\"],\"valid\":false}],\"serviceType\":\"RabbitMQ\",\"valid\":false},\"instanceSettings\":{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"settings\":[{\"errors\":[{}],\"uid\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"valueType\":\"NUMBER\",\"options\":\"e2e-smoke\",\"enabled\":false,\"description\":\"e2e-smoke\",\"parentSettingUid\":\"e2e-smoke\",\"valid\":false}],\"extensions\":[{\"errors\":[{}],\"uid\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"description\":\"e2e-smoke\",\"enabled\":false,\"settings\":[{}],\"requiredExtensionUids\":[\"e2e-smoke\"],\"valid\":false}],\"serviceType\":\"RabbitMQ\",\"valid\":false},\"compatibleScalegridVersionsBackups\":\"e2e-smoke\",\"valid\":false},\"replicationTypeUid\":\"e2e-smoke\",\"additionalSettings\":\"e2e-smoke\",\"resources\":[{\"name\":\"e2e-smoke\",\"resource\":\"e2e-smoke\",\"certificateExpirationDate\":\"e2e-smoke\"}],\"autoPatch\":false,\"hasLatestPatch\":false,\"alerts\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"uid\":\"e2e-smoke\",\"organizationClusterUid\":\"e2e-smoke\",\"scalegridServiceClusterUid\":\"e2e-smoke\",\"scalegridServiceClusterName\":\"e2e-smoke\",\"scalegridServiceUid\":\"e2e-smoke\",\"instanceUid\":\"e2e-smoke\",\"instanceName\":\"e2e-smoke\",\"organizationUid\":\"e2e-smoke\",\"serviceAlertUid\":\"e2e-smoke\",\"sendResolved\":false,\"emailsToNotify\":[\"e2e-smoke\"],\"parameters\":[{\"errors\":[{}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"isCustomerExposed\":false,\"unit\":\"e2e-smoke\",\"minValue\":0,\"maxValue\":0,\"valid\":false}],\"alertType\":\"POD\",\"valid\":false}],\"serviceClusterRoles\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"uid\":\"e2e-smoke\",\"roleUid\":\"e2e-smoke\",\"valid\":false}],\"autoPatchCronJob\":\"e2e-smoke\",\"ruleBasedVPAs\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"uid\":\"e2e-smoke\",\"cpuSizeMRequest\":0,\"memorySizeMbRequest\":0,\"cpuSizeMMaxLimit\":0,\"cpuSizeMMinLimit\":0,\"memorySizeMbMaxLimit\":0,\"memorySizeMbMinLimit\":0,\"cronJob\":\"e2e-smoke\",\"autoScalingType\":\"NONE\",\"valid\":false}],\"backupConfigurations\":{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"uid\":\"e2e-smoke\",\"scalegridServiceClusterUid\":\"e2e-smoke\",\"backupConfigurations\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{}}],\"uid\":\"e2e-smoke\",\"backupLocaleUid\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"description\":\"e2e-smoke\",\"backupCronJob\":\"e2e-smoke\",\"timeToLiveDays\":0,\"maxSizeInBackupsMb\":0,\"backupType\":{\"errors\":[{}],\"uid\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"description\":\"e2e-smoke\",\"scalegridServiceVersionList\":[\"00000000-0000-0000-0000-000000000001\"],\"cloudList\":[\"AWS\"],\"restoreOptions\":\"SAME_PLATFORM\",\"backupMethod\":\"DISC_SNAPSHOT\",\"backupType\":\"PITR\",\"restoreType\":\"STANDALONE\",\"backupStorageTypes\":[\"STORAGE_CLASS\"],\"scalegridServiceEnum\":\"RabbitMQ\",\"backupOperatorDeployment\":\"TARGET_INSTANCE\",\"isTargetOptionRequiredForBackup\":false,\"supportsMultiRegion\":false,\"valid\":false},\"maxNumberOfBackups\":0,\"targetName\":\"e2e-smoke\",\"compressed\":false,\"scalegridServiceClusterUid\":\"e2e-smoke\",\"valid\":false}],\"timeToLiveDays\":0,\"maxSizeInBackupsMb\":0,\"maxNumberOfBackups\":0,\"valid\":false},\"cpuSizeMRequest\":0,\"memorySizeMbRequest\":0,\"cpuSizeMMaxLimit\":0,\"cpuSizeMMinLimit\":0,\"memorySizeMbMaxLimit\":0,\"memorySizeMbMinLimit\":0,\"autoScalingType\":\"NONE\",\"autoScalingCpuPercentage\":0,\"autoScalingMemoryPercentage\":0,\"valid\":false}"
 }
@@ -269,7 +269,7 @@ Deletes a specific backup.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "delete_backup" {
+resource "scalegrid_operation" "delete_backup" {
   operation_id = "delete_backup"
   path_params = {
     backupConfigurationsUid = "00000000-0000-0000-0000-000000000001"
@@ -291,7 +291,7 @@ Deletes an existing backup locale.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "delete_backup_locale" {
+resource "scalegrid_operation" "delete_backup_locale" {
   operation_id = "delete_backup_locale"
   path_params = {
     backupLocaleUid = "00000000-0000-0000-0000-000000000001"
@@ -312,7 +312,7 @@ Deletes an existing cluster.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "delete_cluster" {
+resource "scalegrid_operation" "delete_cluster" {
   operation_id = "delete_cluster"
   path_params = {
     organizationClusterUid = "00000000-0000-0000-0000-000000000001"
@@ -333,7 +333,7 @@ Deletes an existing user invite.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "delete_invite" {
+resource "scalegrid_operation" "delete_invite" {
   operation_id = "delete_invite"
   path_params = {
     inviteUid = "00000000-0000-0000-0000-000000000001"
@@ -351,7 +351,7 @@ Deletes an existing organization.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "delete_organization" {
+resource "scalegrid_operation" "delete_organization" {
   operation_id = "delete_organization"
 }
 ```
@@ -369,7 +369,7 @@ Deletes an existing role.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "delete_role" {
+resource "scalegrid_operation" "delete_role" {
   operation_id = "delete_role"
   path_params = {
     roleId = "00000000-0000-0000-0000-000000000001"
@@ -390,7 +390,7 @@ Deletes an existing Scalegrid managed service.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "delete_scalegrid_service_cluster" {
+resource "scalegrid_operation" "delete_scalegrid_service_cluster" {
   operation_id = "delete_scalegrid_service_cluster"
   path_params = {
     scalegridServiceClusterUid = "00000000-0000-0000-0000-000000000001"
@@ -411,7 +411,7 @@ Deletes an existing user.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "delete_user_from_current_organization" {
+resource "scalegrid_operation" "delete_user_from_current_organization" {
   operation_id = "delete_user_from_current_organization"
   path_params = {
     userId = "00000000-0000-0000-0000-000000000001"
@@ -432,7 +432,7 @@ Forces instance to failover.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "failover_instance" {
+resource "scalegrid_operation" "failover_instance" {
   operation_id = "failover_instance"
   path_params = {
     instanceUid = "00000000-0000-0000-0000-000000000001"
@@ -456,7 +456,7 @@ Returns a list of audit logs.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_audits" {
+resource "scalegrid_operation" "get_audits" {
   operation_id = "get_audits"
   body_json = "{\"pageIndex\":0,\"pageSize\":0,\"sortParameters\":[{\"attributeName\":\"e2e-smoke\",\"direction\":\"ASC\"}],\"filters\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operator\":\"LIKE\",\"valid\":false}],\"conjunction\":\"AND\"}"
 }
@@ -475,7 +475,7 @@ Returns an existing backup.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_backup" {
+resource "scalegrid_operation" "get_backup" {
   operation_id = "get_backup"
   path_params = {
     backupUid = "00000000-0000-0000-0000-000000000001"
@@ -499,7 +499,7 @@ Returns a list of existing backups.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_backup_list" {
+resource "scalegrid_operation" "get_backup_list" {
   operation_id = "get_backup_list"
   body_json = "{\"pageIndex\":0,\"pageSize\":0,\"sortParameters\":[{\"attributeName\":\"e2e-smoke\",\"direction\":\"ASC\"}],\"filters\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operator\":\"LIKE\",\"valid\":false}],\"conjunction\":\"AND\"}"
 }
@@ -518,7 +518,7 @@ Returns a specific backup locale.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_backup_locale" {
+resource "scalegrid_operation" "get_backup_locale" {
   operation_id = "get_backup_locale"
   path_params = {
     backupLocaleUid = "00000000-0000-0000-0000-000000000001"
@@ -542,7 +542,7 @@ Returns a list of existing backup locales.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_backup_locale_list" {
+resource "scalegrid_operation" "get_backup_locale_list" {
   operation_id = "get_backup_locale_list"
   body_json = "{\"pageIndex\":0,\"pageSize\":0,\"sortParameters\":[{\"attributeName\":\"e2e-smoke\",\"direction\":\"ASC\"}],\"filters\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operator\":\"LIKE\",\"valid\":false}],\"conjunction\":\"AND\"}"
 }
@@ -561,7 +561,7 @@ Returns the state of an existing backup locale.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_backup_locale_state" {
+resource "scalegrid_operation" "get_backup_locale_state" {
   operation_id = "get_backup_locale_state"
   path_params = {
     backupLocaleUid = "00000000-0000-0000-0000-000000000001"
@@ -585,7 +585,7 @@ Returns a list of backup types for a specific service version.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_backup_types" {
+resource "scalegrid_operation" "get_backup_types" {
   operation_id = "get_backup_types"
   body_json = "{\"pageIndex\":0,\"pageSize\":0,\"sortParameters\":[{\"attributeName\":\"e2e-smoke\",\"direction\":\"ASC\"}],\"filters\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operator\":\"LIKE\",\"valid\":false}],\"conjunction\":\"AND\"}"
 }
@@ -604,7 +604,7 @@ Returns the TLS certificate and expiration date for an existing Scalegrid manage
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_certificate" {
+resource "scalegrid_operation" "get_certificate" {
   operation_id = "get_certificate"
   path_params = {
     scalegridServiceClusterUid = "00000000-0000-0000-0000-000000000001"
@@ -628,7 +628,7 @@ Returns a list of cloud providers.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_cloud_providers" {
+resource "scalegrid_operation" "get_cloud_providers" {
   operation_id = "get_cloud_providers"
   body_json = "{\"pageIndex\":0,\"pageSize\":0,\"sortParameters\":[{\"attributeName\":\"e2e-smoke\",\"direction\":\"ASC\"}],\"filters\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operator\":\"LIKE\",\"valid\":false}],\"conjunction\":\"AND\"}"
 }
@@ -650,7 +650,7 @@ Returns a list of available dedicated hosting clusters.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_cluster_list" {
+resource "scalegrid_operation" "get_cluster_list" {
   operation_id = "get_cluster_list"
   body_json = "{\"pageIndex\":0,\"pageSize\":0,\"sortParameters\":[{\"attributeName\":\"e2e-smoke\",\"direction\":\"ASC\"}],\"filters\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operator\":\"LIKE\",\"valid\":false}],\"conjunction\":\"AND\"}"
 }
@@ -669,7 +669,7 @@ Returns the available metadata of a specific cluster.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_cluster_metadata" {
+resource "scalegrid_operation" "get_cluster_metadata" {
   operation_id = "get_cluster_metadata"
   path_params = {
     organizationClusterUid = "00000000-0000-0000-0000-000000000001"
@@ -690,7 +690,7 @@ Returns the state of an existing service.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_cluster_state" {
+resource "scalegrid_operation" "get_cluster_state" {
   operation_id = "get_cluster_state"
   path_params = {
     scalegridServiceClusterUid = "00000000-0000-0000-0000-000000000001"
@@ -711,7 +711,7 @@ Returns the state of an existing cluster.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_cluster_state_1" {
+resource "scalegrid_operation" "get_cluster_state_1" {
   operation_id = "get_cluster_state_1"
   path_params = {
     organizationClusterUid = "00000000-0000-0000-0000-000000000001"
@@ -732,7 +732,7 @@ Returns a list of available storage types in a specific cluster.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_cluster_storages" {
+resource "scalegrid_operation" "get_cluster_storages" {
   operation_id = "get_cluster_storages"
   path_params = {
     organizationClusterUid = "00000000-0000-0000-0000-000000000001"
@@ -753,7 +753,7 @@ Returns an existing user.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_current_organization_user_by_id" {
+resource "scalegrid_operation" "get_current_organization_user_by_id" {
   operation_id = "get_current_organization_user_by_id"
   path_params = {
     userId = "00000000-0000-0000-0000-000000000001"
@@ -771,7 +771,7 @@ Returns an existing user.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_current_organization_user_by_token" {
+resource "scalegrid_operation" "get_current_organization_user_by_token" {
   operation_id = "get_current_organization_user_by_token"
 }
 ```
@@ -792,7 +792,7 @@ Returns a list of available dashboards for your service.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_dashboards" {
+resource "scalegrid_operation" "get_dashboards" {
   operation_id = "get_dashboards"
   body_json = "{\"pageIndex\":0,\"pageSize\":0,\"sortParameters\":[{\"attributeName\":\"e2e-smoke\",\"direction\":\"ASC\"}],\"filters\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operator\":\"LIKE\",\"valid\":false}],\"conjunction\":\"AND\"}"
 }
@@ -818,7 +818,7 @@ Returns a list of events from an existing instance.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_event_list" {
+resource "scalegrid_operation" "get_event_list" {
   operation_id = "get_event_list"
   path_params = {
     scalegridServiceClusterUid = "00000000-0000-0000-0000-000000000001"
@@ -844,7 +844,7 @@ Returns a list of Scalegrid managed services ingress options.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_ingresses" {
+resource "scalegrid_operation" "get_ingresses" {
   operation_id = "get_ingresses"
   body_json = "{\"pageIndex\":0,\"pageSize\":0,\"sortParameters\":[{\"attributeName\":\"e2e-smoke\",\"direction\":\"ASC\"}],\"filters\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operator\":\"LIKE\",\"valid\":false}],\"conjunction\":\"AND\"}"
 }
@@ -864,7 +864,7 @@ Returns the state of an existing instance.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_instance_state" {
+resource "scalegrid_operation" "get_instance_state" {
   operation_id = "get_instance_state"
   path_params = {
     scalegridServiceClusterUid = "00000000-0000-0000-0000-000000000001"
@@ -889,7 +889,7 @@ Returns a list of user invites.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_invites" {
+resource "scalegrid_operation" "get_invites" {
   operation_id = "get_invites"
   body_json = "{\"pageIndex\":0,\"pageSize\":0,\"sortParameters\":[{\"attributeName\":\"e2e-smoke\",\"direction\":\"ASC\"}],\"filters\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operator\":\"LIKE\",\"valid\":false}],\"conjunction\":\"AND\"}"
 }
@@ -905,7 +905,7 @@ Returns the latest cluster version.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_latest_cluster_version" {
+resource "scalegrid_operation" "get_latest_cluster_version" {
   operation_id = "get_latest_cluster_version"
 }
 ```
@@ -930,7 +930,7 @@ Returns a list of logs from an existing instance.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_log_list" {
+resource "scalegrid_operation" "get_log_list" {
   operation_id = "get_log_list"
   path_params = {
     scalegridServiceClusterUid = "00000000-0000-0000-0000-000000000001"
@@ -950,7 +950,7 @@ Returns an existing organization.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_organization" {
+resource "scalegrid_operation" "get_organization" {
   operation_id = "get_organization"
 }
 ```
@@ -968,7 +968,7 @@ Returns a specific cluster.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_organization_cluster" {
+resource "scalegrid_operation" "get_organization_cluster" {
   operation_id = "get_organization_cluster"
   path_params = {
     organizationClusterUid = "00000000-0000-0000-0000-000000000001"
@@ -992,7 +992,7 @@ Returns a list of clusters.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_organization_clusters" {
+resource "scalegrid_operation" "get_organization_clusters" {
   operation_id = "get_organization_clusters"
   body_json = "{\"pageIndex\":0,\"pageSize\":0,\"sortParameters\":[{\"attributeName\":\"e2e-smoke\",\"direction\":\"ASC\"}],\"filters\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operator\":\"LIKE\",\"valid\":false}],\"conjunction\":\"AND\"}"
 }
@@ -1014,7 +1014,7 @@ Returns available permissions for roles.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_permissions" {
+resource "scalegrid_operation" "get_permissions" {
   operation_id = "get_permissions"
   body_json = "{\"pageIndex\":0,\"pageSize\":0,\"sortParameters\":[{\"attributeName\":\"e2e-smoke\",\"direction\":\"ASC\"}],\"filters\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operator\":\"LIKE\",\"valid\":false}],\"conjunction\":\"AND\"}"
 }
@@ -1036,7 +1036,7 @@ Returns recommended settings for a service based on the provided parameters.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_recommended_settings" {
+resource "scalegrid_operation" "get_recommended_settings" {
   operation_id = "get_recommended_settings"
   body_json = "{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"scalegridServiceVersionUid\":\"e2e-smoke\",\"cpu\":0,\"memory\":0,\"storage\":0,\"numberOfReplicas\":0,\"recommendations\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"uid\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"recommended\":\"e2e-smoke\",\"valid\":false}],\"valid\":false}"
 }
@@ -1058,7 +1058,7 @@ Returns a list of existing restores.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_restore_list" {
+resource "scalegrid_operation" "get_restore_list" {
   operation_id = "get_restore_list"
   body_json = "{\"pageIndex\":0,\"pageSize\":0,\"sortParameters\":[{\"attributeName\":\"e2e-smoke\",\"direction\":\"ASC\"}],\"filters\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operator\":\"LIKE\",\"valid\":false}],\"conjunction\":\"AND\"}"
 }
@@ -1077,7 +1077,7 @@ Returns an existing role.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_role" {
+resource "scalegrid_operation" "get_role" {
   operation_id = "get_role"
   path_params = {
     roleId = "00000000-0000-0000-0000-000000000001"
@@ -1101,7 +1101,7 @@ Returns a list of roles.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_roles" {
+resource "scalegrid_operation" "get_roles" {
   operation_id = "get_roles"
   body_json = "{\"pageIndex\":0,\"pageSize\":0,\"sortParameters\":[{\"attributeName\":\"e2e-smoke\",\"direction\":\"ASC\"}],\"filters\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operator\":\"LIKE\",\"valid\":false}],\"conjunction\":\"AND\"}"
 }
@@ -1120,7 +1120,7 @@ Returns an existing Scalegrid managed service.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_scalegrid_service_cluster" {
+resource "scalegrid_operation" "get_scalegrid_service_cluster" {
   operation_id = "get_scalegrid_service_cluster"
   path_params = {
     scalegridServiceClusterUid = "00000000-0000-0000-0000-000000000001"
@@ -1144,7 +1144,7 @@ Returns a list of Scalegrid managed services.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_scalegrid_service_clusters" {
+resource "scalegrid_operation" "get_scalegrid_service_clusters" {
   operation_id = "get_scalegrid_service_clusters"
   body_json = "{\"pageIndex\":0,\"pageSize\":0,\"sortParameters\":[{\"attributeName\":\"e2e-smoke\",\"direction\":\"ASC\"}],\"filters\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operator\":\"LIKE\",\"valid\":false}],\"conjunction\":\"AND\"}"
 }
@@ -1166,7 +1166,7 @@ Returns a list of Scalegrid managed service types.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_scalegrid_service_types" {
+resource "scalegrid_operation" "get_scalegrid_service_types" {
   operation_id = "get_scalegrid_service_types"
   body_json = "{\"pageIndex\":0,\"pageSize\":0,\"sortParameters\":[{\"attributeName\":\"e2e-smoke\",\"direction\":\"ASC\"}],\"filters\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operator\":\"LIKE\",\"valid\":false}],\"conjunction\":\"AND\"}"
 }
@@ -1188,7 +1188,7 @@ Returns a list of Scalegrid managed service versions.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_scalegrid_service_versions" {
+resource "scalegrid_operation" "get_scalegrid_service_versions" {
   operation_id = "get_scalegrid_service_versions"
   body_json = "{\"pageIndex\":0,\"pageSize\":0,\"sortParameters\":[{\"attributeName\":\"e2e-smoke\",\"direction\":\"ASC\"}],\"filters\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operator\":\"LIKE\",\"valid\":false}],\"conjunction\":\"AND\"}"
 }
@@ -1210,7 +1210,7 @@ Returns a list of available alerts for your service.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_services_alert_templates" {
+resource "scalegrid_operation" "get_services_alert_templates" {
   operation_id = "get_services_alert_templates"
   body_json = "{\"pageIndex\":0,\"pageSize\":0,\"sortParameters\":[{\"attributeName\":\"e2e-smoke\",\"direction\":\"ASC\"}],\"filters\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operator\":\"LIKE\",\"valid\":false}],\"conjunction\":\"AND\"}"
 }
@@ -1232,7 +1232,7 @@ Returns a list of users.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "get_users" {
+resource "scalegrid_operation" "get_users" {
   operation_id = "get_users"
   body_json = "{\"pageIndex\":0,\"pageSize\":0,\"sortParameters\":[{\"attributeName\":\"e2e-smoke\",\"direction\":\"ASC\"}],\"filters\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"key\":\"e2e-smoke\",\"value\":\"e2e-smoke\",\"operator\":\"LIKE\",\"valid\":false}],\"conjunction\":\"AND\"}"
 }
@@ -1251,7 +1251,7 @@ Invites a user via email, to join the organization.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "invite_user_for_current_organization" {
+resource "scalegrid_operation" "invite_user_for_current_organization" {
   operation_id = "invite_user_for_current_organization"
   path_params = {
     email = "e2e-smoke@example.com"
@@ -1269,7 +1269,7 @@ Onboards an existing user.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "onboard_current_user" {
+resource "scalegrid_operation" "onboard_current_user" {
   operation_id = "onboard_current_user"
 }
 ```
@@ -1287,7 +1287,7 @@ Replaces an existing instance.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "replace_instance" {
+resource "scalegrid_operation" "replace_instance" {
   operation_id = "replace_instance"
   path_params = {
     instanceUid = "00000000-0000-0000-0000-000000000001"
@@ -1311,7 +1311,7 @@ Updates an existing backup locale.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "update_backup_locale" {
+resource "scalegrid_operation" "update_backup_locale" {
   operation_id = "update_backup_locale"
   body_json = "{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"uid\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"description\":\"e2e-smoke\",\"creationTime\":\"e2e-smoke\",\"labels\":[\"e2e-smoke\"],\"backupLocaleRoles\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"uid\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"description\":\"e2e-smoke\",\"permissions\":[{\"errors\":[{}],\"name\":\"e2e-smoke\",\"category\":\"e2e-smoke\",\"permissionName\":\"e2e-smoke\",\"resourceServerIdentifier\":\"e2e-smoke\",\"valid\":false}],\"modificationAllowed\":false,\"valid\":false}],\"organizationUid\":\"e2e-smoke\",\"cloudProvider\":\"AWS\",\"platformId\":\"e2e-smoke\",\"backupStorages\":[\"STORAGE_CLASS\"],\"objectStorageName\":\"e2e-smoke\",\"valid\":false}"
 }
@@ -1336,7 +1336,7 @@ Updates an existing cluster.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "update_cluster" {
+resource "scalegrid_operation" "update_cluster" {
   operation_id = "update_cluster"
   path_params = {
     organizationClusterUid = "00000000-0000-0000-0000-000000000001"
@@ -1364,7 +1364,7 @@ Updates an existing user.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "update_current_organization_user" {
+resource "scalegrid_operation" "update_current_organization_user" {
   operation_id = "update_current_organization_user"
   path_params = {
     userId = "00000000-0000-0000-0000-000000000001"
@@ -1389,7 +1389,7 @@ Updates an existing organization credit card details.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "update_organization_credit_card" {
+resource "scalegrid_operation" "update_organization_credit_card" {
   operation_id = "update_organization_credit_card"
   body_json = "{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"creditCardToken\":\"e2e-smoke\",\"valid\":false}"
 }
@@ -1411,7 +1411,7 @@ Updates an existing organization.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "update_own_organization" {
+resource "scalegrid_operation" "update_own_organization" {
   operation_id = "update_own_organization"
   body_json = "{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"uid\":\"e2e-smoke\",\"name\":\"e2e-smoke\",\"email\":\"e2e-smoke\",\"status\":\"TRIAL\",\"trialExpirationDate\":\"e2e-smoke\",\"invoicingType\":\"MANUAL\",\"paymentMethod\":\"BANK_TRANSFER\",\"defaultInviteRole\":\"e2e-smoke\",\"statusHistory\":[{\"errors\":[{\"key\":\"e2e-smoke\",\"error\":{\"message\":\"e2e-smoke\",\"code\":\"e2e-smoke\"}}],\"uid\":\"e2e-smoke\",\"newStatus\":\"TRIAL\",\"oldStatus\":\"TRIAL\",\"timestamp\":\"e2e-smoke\",\"valid\":false}],\"creationTime\":\"e2e-smoke\",\"creditCardBrand\":\"e2e-smoke\",\"creditCardLast4\":\"e2e-smoke\",\"maxNumberOfRoles\":0,\"valid\":false}"
 }
@@ -1436,7 +1436,7 @@ Updates an existing role.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "update_role" {
+resource "scalegrid_operation" "update_role" {
   operation_id = "update_role"
   path_params = {
     roleId = "00000000-0000-0000-0000-000000000001"
@@ -1464,7 +1464,7 @@ Updates an existing Scalegrid managed service.
 **Terraform example:**
 
 ```terraform
-data "scalegrid_operation" "update_scalegrid_service_cluster" {
+resource "scalegrid_operation" "update_scalegrid_service_cluster" {
   operation_id = "update_scalegrid_service_cluster"
   path_params = {
     scalegridServiceClusterUid = "00000000-0000-0000-0000-000000000001"

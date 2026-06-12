@@ -49,10 +49,10 @@ provider "scalegrid" {
 
 ## Usage
 
-Call sg-api operations through the generic `scalegrid_operation` data source:
+Call sg-api operations through the generic `scalegrid_operation` resource (API calls run on `terraform apply`, not on `plan`):
 
 ```hcl
-data "scalegrid_operation" "pg_versions" {
+resource "scalegrid_operation" "pg_versions" {
   operation_id = "get_scalegrid_service_versions"
   body_json = jsonencode({
     pageIndex = 0
@@ -61,7 +61,7 @@ data "scalegrid_operation" "pg_versions" {
 }
 ```
 
-See the ScaleGrid platform documentation for the full list of operation IDs.
+See the [full operations reference](./docs/resources/operation.md) for every supported `operation_id` with Terraform examples.
 
 ## Development
 

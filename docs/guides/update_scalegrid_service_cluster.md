@@ -6,14 +6,14 @@ description: |-
 
 # update_scalegrid_service_cluster
 
-See the [`scalegrid_operation` data source documentation](../data-sources/operation#update_scalegrid_service_cluster) for the full reference.
+See the [`scalegrid_operation` resource documentation](../resources/operation#update_scalegrid_service_cluster) for the full reference.
 
 **HTTP:** `PUT /scalegridserviceclusters/{scalegridServiceClusterUid}`
 
 ## Terraform Example
 
 ```terraform
-data "scalegrid_operation" "example" {
+resource "scalegrid_operation" "example" {
   operation_id = "update_scalegrid_service_cluster"
   path_params = {
     scalegridServiceClusterUid = "00000000-0000-0000-0000-000000000001"

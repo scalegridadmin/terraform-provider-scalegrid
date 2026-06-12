@@ -16,7 +16,7 @@ variable "scalegrid_bearer_token" {
   sensitive = true
 }
 
-data "scalegrid_operation" "pg_versions" {
+resource "scalegrid_operation" "pg_versions" {
   operation_id = "get_scalegrid_service_versions"
   body_json = jsonencode({
     pageIndex = 0
@@ -25,6 +25,6 @@ data "scalegrid_operation" "pg_versions" {
 }
 
 output "pg_versions_response" {
-  value     = data.scalegrid_operation.pg_versions.response
+  value     = scalegrid_operation.pg_versions.response
   sensitive = true
 }

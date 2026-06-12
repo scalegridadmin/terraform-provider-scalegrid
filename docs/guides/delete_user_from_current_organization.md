@@ -6,14 +6,14 @@ description: |-
 
 # delete_user_from_current_organization
 
-See the [`scalegrid_operation` data source documentation](../data-sources/operation#delete_user_from_current_organization) for the full reference.
+See the [`scalegrid_operation` resource documentation](../resources/operation#delete_user_from_current_organization) for the full reference.
 
 **HTTP:** `DELETE /identity/organizations/users/{userId}`
 
 ## Terraform Example
 
 ```terraform
-data "scalegrid_operation" "example" {
+resource "scalegrid_operation" "example" {
   operation_id = "delete_user_from_current_organization"
   path_params = {
     userId = "00000000-0000-0000-0000-000000000001"

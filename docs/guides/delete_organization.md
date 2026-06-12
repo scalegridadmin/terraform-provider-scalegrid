@@ -6,14 +6,14 @@ description: |-
 
 # delete_organization
 
-See the [`scalegrid_operation` data source documentation](../data-sources/operation#delete_organization) for the full reference.
+See the [`scalegrid_operation` resource documentation](../resources/operation#delete_organization) for the full reference.
 
 **HTTP:** `DELETE /organization`
 
 ## Terraform Example
 
 ```terraform
-data "scalegrid_operation" "example" {
+resource "scalegrid_operation" "example" {
   operation_id = "delete_organization"
 }
 ```

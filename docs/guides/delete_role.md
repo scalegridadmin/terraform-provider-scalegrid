@@ -6,14 +6,14 @@ description: |-
 
 # delete_role
 
-See the [`scalegrid_operation` data source documentation](../data-sources/operation#delete_role) for the full reference.
+See the [`scalegrid_operation` resource documentation](../resources/operation#delete_role) for the full reference.
 
 **HTTP:** `DELETE /identity/organizations/roles/{roleId}`
 
 ## Terraform Example
 
 ```terraform
-data "scalegrid_operation" "example" {
+resource "scalegrid_operation" "example" {
   operation_id = "delete_role"
   path_params = {
     roleId = "00000000-0000-0000-0000-000000000001"
